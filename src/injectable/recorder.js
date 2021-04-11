@@ -1,9 +1,14 @@
 (function () {
-
     const main = () => {
-        $("body").on("click")
+        $("body").on("click", record)
     }
     $(main);
+
+    const record = (event) => {
+        console.log(event)
+        console.log(event.target)
+        console.log(this)
+    }
 
     /**
      * Simulates low level click event
@@ -25,28 +30,5 @@
                 console.log(e);
             }
         }
-    }
-
-    /** Enqueue element to be clicked in FIFO order */
-    const enqueue = (item) => {
-        if(typeof item !== "undefined") {
-            queue.push(item);
-        }
-    }
-
-    /** Dequeue element so we can click it */
-    const dequeue = () => {
-        return queue.shift();
-    }
-
-    const isQueueEmpty = () => {
-        return queue.length === 0;
-    }
-
-    /** When script is done, save elements found to local storage, stop clock, send message to top frame */
-    const done = () => {
-        logElementsFoundToLocalStorage();
-        clearInterval(interval);
-        window.top.postMessage("DONE", "*")
     }
 })();
